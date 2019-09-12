@@ -1,12 +1,47 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <title>My Web Page</title>
+    <title>My Note Keeper</title>
+    <meta name="description" content="My Note Keeper" />
+    <meta name="author" content="Anton Biriukov" />
   </head>
 
   <body>
-    <!-- This is a comment -->
-    <h1>Hello World!</h1>
+    <h1 align="center">DPS909 Lab 2</h1>
+    <h2 align="center">My Note Keeper</h2>
+    <div class="card" style="width: 100%;">
+        <div class="card-body">
+          <h4 style="margin-left: 10%; margin-right: 10%;" align="center" class="card-title">Enter Notes Below:</h4>
+       
+          <p align="center" class="card-text">
+            <div style="margin-left: 10%; margin-right: 10%;" id="note" contenteditable></div>
+          </p>
+         
+        </div>
+    </div>
+    <script src="https://unpkg.com/filer/dist/filer.min.js"></script>
+    <script>
+      const fs = new Filer.FileSystem();
+      document.addEventListener("DOMContentLoaded", event => {
+        fs.readFile("/note", "utf8", function(err, data) {
+          if (err != null || data == null) {
+            data = "Welcome to my notepad!";
+          }
+
+          document.querySelector("#note").innerHTML = data;
+        });
+      });
+      var saveFile = function() {
+        fs.writeFile(
+          "/note",
+          document.querySelector("#note").innerHTML,
+          function(err) {
+            if (err) throw err;
+          }
+        );
+      };
+      var interval = window.setInterval(saveFile, 2700);
+    </script>
   </body>
 </html>
