@@ -1,0 +1,20 @@
+{
+  "name": "my-note-keeper",
+  "version": "1.0.0",
+  "description": "A simple web-based note taking application",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/birtony/my-note-keeper.git"
+  },
+  "author": "Anton Biriukov",
+  "license": "BSD-2-Clause",
+  "bugs": {
+    "url": "https://github.com/birtony/my-note-keeper/issues"
+  },
+  "homepage": "https://github.com/birtony/my-note-keeper#readme",
+  "dependencies": {}
+}
