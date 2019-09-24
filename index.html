@@ -137,7 +137,7 @@
     <div class="topnav">
       <div class="leftNavContainer">
         <button onclick="saveFile()">Save</button>
-        <button onclick="clearFile()">Clear</button>
+        <button onclick="clearFile(); wordcount();">Clear</button>
       </div>
       <h1 align="center">DPS909 Lab 2</h1>
       <div class="rightNavContainer">
@@ -161,8 +161,24 @@
     <div class="card">
       <div class="card-body">
         <h4 class="card-title">Enter Notes Below:</h4>
-        <div class="note" id="note" contenteditable></div>
+
+        <!-- Events that make a call to the word-counting function-->
+        <div class="note" id="note" 
+          contenteditable
+          onchange="wordcount()"
+          onkeypress="wordcount()"
+          onkeyup="wordcount()"
+          onkeydown="wordcount()"
+          onblur="wordcount()"
+          onfocus="wordcount()"></div>
+
+          <!-- Word-Counter display container-->
+        <h5 class="card-text" style="justify-content:left; margin: 5px 0px 5px 05px">
+          Words: <span id="wordcount"></span>
+        </h5>
+        
       </div>
+      
     </div>
     <script src="https://unpkg.com/filer/dist/filer.min.js"></script>
     <script>
@@ -174,8 +190,11 @@
           }
 
           document.querySelector("#note").innerHTML = data;
+          wordcount();
         });
+
       });
+
       var saveFile = function() {
         fs.writeFile(
           "/note",
@@ -188,6 +207,30 @@
       var clearFile = function() {
         document.querySelector("#note").innerHTML = "";
       };
+      
+      // wordcount feature
+      var wordcount = function() {
+        // select the note container
+        var note = document.querySelector('#note');
+        // select the word-counter container
+        var count = document.querySelector('#wordcount');
+
+        // clear word-counter
+        count.innerHTML = "";
+        var words;
+        // text-editing algorithm
+        var string = note.innerHTML.replace(/&nbsp;+/gi, '').trim().replace(/\s+/gi, ' ').replace(/^\s/gi, '');
+
+        // display count
+        if (string.length == 0) {
+          words = 0;
+        }
+        else {
+          words = string.split(' ').length;
+        }
+        count.innerHTML ='&nbsp;'+ words;
+      };
+      
       var interval = window.setInterval(saveFile, 3000);
     </script>
   </body>
